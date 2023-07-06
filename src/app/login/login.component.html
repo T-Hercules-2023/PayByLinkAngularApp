@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-4 mx-auto mt-5" style="width: 30%;">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="text-center">{{title}}</h5>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="angForm" novalidate (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <label>Mobile Number:</label>
+                            <input class="form-control" formControlName="mobileNumber" type="text" placeholder="Enter 10 digit Mobile Number" maxlength="10" minlength="10"  (keyup)="onKeypressEvent($event)">
+                        </div>
+                        <div *ngIf="f['mobileNumber'].invalid && (f['mobileNumber'].dirty || f['mobileNumber'].touched)">
+                            <span class="text-danger" *ngIf="f['mobileNumber'].errors?.['required']">
+                                *Mobile Number is required.
+                            </span>
+                        </div>
+                        <div *ngIf="f['mobileNumber'].invalid && (f['mobileNumber'].dirty || f['mobileNumber'].touched)">
+                            <span class="text-danger"
+                                *ngIf="f['mobileNumber'].errors?.['pattern']">
+                                *Mobile Number is invalid.
+                            </span>
+                        </div>
+                        <div *ngIf="(f['mobileNumber'].dirty || f['mobileNumber'].touched)">
+                            <span class="text-danger" *ngIf="isMobileNotExists">
+                                *Mobile Number is not registered.
+                            </span>
+                            
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="password">Password:</label>
+                            <input formControlName="password" id="password" type="password" class="form-control">
+                            <div *ngIf="f['password'].touched && f['password'].invalid">
+                                <span class="text-danger" *ngIf="f['password'].errors?.['required']">*Password is
+                                    required.</span>
+                            </div>
+                            <div *ngIf="f['password'].touched">
+                                <span class="text-danger" *ngIf="isIncorrectPassword">*Password is
+                                    Incorrect.</span>
+                            </div>
+                        </div>
+                        <button type="submit" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-success">
+                            Save
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
